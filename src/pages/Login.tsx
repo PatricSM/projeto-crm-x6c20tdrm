@@ -48,7 +48,7 @@ export default function Login() {
               <Input
                 id="email"
                 type="email"
-                placeholder="patric.martins@adapta.org"
+                placeholder="teste@teste.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -71,7 +71,7 @@ export default function Login() {
           <div className="mt-4 text-center text-sm text-slate-500">
             Para testes, use:
             <br />
-            Email: <b>patric.martins@adapta.org</b>
+            Email: <b>teste@teste.com</b>
             <br />
             Senha: <b>Skip@Pass</b>
           </div>
