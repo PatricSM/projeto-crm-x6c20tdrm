@@ -2,15 +2,18 @@ import { Outlet, Link, useLocation } from 'react-router-dom'
 import { useAuth } from '@/hooks/use-auth'
 import {
   Home,
+  LayoutDashboard,
+  UserPlus,
+  CircleDollarSign,
   Users,
   Building2,
-  CircleDollarSign,
   CheckSquare,
-  Search,
   Bell,
+  Upload,
+  Settings as SettingsIcon,
+  HelpCircle,
   LogOut,
   User,
-  Menu,
 } from 'lucide-react'
 import {
   SidebarProvider,
@@ -18,13 +21,13 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarHeader,
   SidebarTrigger,
 } from '@/components/ui/sidebar'
-import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -33,7 +36,33 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+
+interface NavItem {
+  label: string
+  icon: React.ComponentType<{ className?: string }>
+  path: string
+}
+
+const mainItems: NavItem[] = [
+  { label: 'Início', icon: Home, path: '/home' },
+  { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
+  { label: 'Leads', icon: UserPlus, path: '/leads' },
+  { label: 'Deals', icon: CircleDollarSign, path: '/deals' },
+  { label: 'Contatos', icon: Users, path: '/contacts' },
+  { label: 'Empresas', icon: Building2, path: '/organizations' },
+  { label: 'Tarefas', icon: CheckSquare, path: '/tasks' },
+]
+
+const toolsItems: NavItem[] = [
+  { label: 'Notificações', icon: Bell, path: '/notifications' },
+  { label: 'Importar', icon: Upload, path: '/import' },
+]
+
+const adminItems: NavItem[] = [
+  { label: 'Configurações', icon: SettingsIcon, path: '/settings' },
+  { label: 'Ajuda', icon: HelpCircle, path: '/help' },
+]
 
 export default function Layout() {
   const { user, signOut } = useAuth()
@@ -41,13 +70,30 @@ export default function Layout() {
 
   if (!user) return <Outlet />
 
-  const navItems = [
-    { label: 'Dashboard', icon: Home, path: '/' },
-    { label: 'Contatos', icon: Users, path: '/contacts' },
-    { label: 'Empresas', icon: Building2, path: '/companies' },
-    { label: 'Negócios', icon: CircleDollarSign, path: '/deals' },
-    { label: 'Tarefas', icon: CheckSquare, path: '/tasks' },
-  ]
+  const isActive = (path: string) =>
+    path === '/home'
+      ? location.pathname === '/home' || location.pathname === '/'
+      : location.pathname === path || location.pathname.startsWith(path + '/')
+
+  const renderGroup = (label: string | null, items: NavItem[]) => (
+    <SidebarGroup>
+      {label && <SidebarGroupLabel>{label}</SidebarGroupLabel>}
+      <SidebarGroupContent>
+        <SidebarMenu>
+          {items.map((item) => (
+            <SidebarMenuItem key={item.path}>
+              <SidebarMenuButton asChild isActive={isActive(item.path)}>
+                <Link to={item.path}>
+                  <item.icon />
+                  <span>{item.label}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarGroupContent>
+    </SidebarGroup>
+  )
 
   return (
     <SidebarProvider>
@@ -59,22 +105,9 @@ export default function Layout() {
             </span>
           </SidebarHeader>
           <SidebarContent>
-            <SidebarGroup>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {navItems.map((item) => (
-                    <SidebarMenuItem key={item.path}>
-                      <SidebarMenuButton asChild isActive={location.pathname === item.path}>
-                        <Link to={item.path}>
-                          <item.icon />
-                          <span>{item.label}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
+            {renderGroup(null, mainItems)}
+            {renderGroup('Ferramentas', toolsItems)}
+            {renderGroup('Sistema', adminItems)}
           </SidebarContent>
         </Sidebar>
 
@@ -82,21 +115,14 @@ export default function Layout() {
           <header className="h-16 border-b bg-white flex items-center justify-between px-4 sm:px-6 shadow-sm z-10">
             <div className="flex items-center gap-4 flex-1">
               <SidebarTrigger className="md:hidden" />
-              <div className="relative w-full max-w-md hidden sm:block">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  type="search"
-                  placeholder="Pesquisar..."
-                  className="pl-9 bg-slate-50 border-none w-full"
-                />
-              </div>
             </div>
 
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="w-5 h-5 text-slate-600" />
-                <span className="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full" />
-              </Button>
+              <Link to="/notifications">
+                <Button variant="ghost" size="icon" className="relative">
+                  <Bell className="w-5 h-5 text-slate-600" />
+                </Button>
+              </Link>
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -118,7 +144,7 @@ export default function Layout() {
                     </div>
                   </div>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
+                  <DropdownMenuItem disabled>
                     <User className="mr-2 h-4 w-4" />
                     <span>Meu Perfil</span>
                   </DropdownMenuItem>
