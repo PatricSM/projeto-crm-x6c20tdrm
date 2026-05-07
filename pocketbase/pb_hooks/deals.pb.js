@@ -17,18 +17,8 @@ onRecordCreate((e) => {
       deal.set('sla', policy.id)
       deal.set('sla_creation', new Date().toISOString())
       try {
-        const respDue = helpers.addMinutesIso(
-          $app,
-          null,
-          policy.get('response_time_min'),
-          policy,
-        )
-        const resDue = helpers.addMinutesIso(
-          $app,
-          null,
-          policy.get('resolution_time_min'),
-          policy,
-        )
+        const respDue = helpers.addMinutesIso($app, null, policy.get('response_time_min'), policy)
+        const resDue = helpers.addMinutesIso($app, null, policy.get('resolution_time_min'), policy)
         deal.set('response_due', respDue)
         deal.set('resolution_due', resDue)
         deal.set('sla_status', 'FirstResponseDue')

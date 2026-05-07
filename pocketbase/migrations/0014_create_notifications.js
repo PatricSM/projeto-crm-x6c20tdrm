@@ -43,9 +43,7 @@ migrate(
         { name: 'created', type: 'autodate', onCreate: true, onUpdate: false },
         { name: 'updated', type: 'autodate', onCreate: true, onUpdate: true },
       ],
-      indexes: [
-        'CREATE INDEX idx_notifications_recipient ON notifications (recipient, read)',
-      ],
+      indexes: ['CREATE INDEX idx_notifications_recipient ON notifications (recipient, read)'],
     })
     app.save(notifications)
   },

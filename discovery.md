@@ -8,26 +8,26 @@ Selecionei 7 entidades-núcleo + 6 lookups. Outras 23 doctypes (telefonia, integ
 
 ### Entidades-núcleo
 
-| # | Entidade | Campos principais |
-|---|---|---|
-| 1 | **Lead** (potencial cliente) | first_name, last_name, email, mobile_no, organization, status→LeadStatus, source→LeadSource, industry→Industry, lead_owner→User, annual_revenue, no_of_employees, job_title, image, converted (bool) |
-| 2 | **Deal** (oportunidade) | organization→Organization, lead→Lead, status→DealStatus, probability, annual_revenue, deal_owner→User, email, mobile_no, next_step, territory→Territory |
-| 3 | **Contact** | full_name, email, mobile_no, phone, gender, organization→Organization, is_primary |
-| 4 | **Organization** (empresa) | organization_name, website, organization_logo, no_of_employees, annual_revenue, industry→Industry, territory→Territory, address |
-| 5 | **Task** | title, priority (Low/Medium/High), status (Backlog/Todo/InProgress/Done/Canceled), start_date, due_date, assigned_to→User, description, reference (lead/deal) |
-| 6 | **Note** | title, content, reference (lead/deal/contact), author→User |
-| 7 | **CallLog** | from, to, status (Initiated/Ringing/Completed/Failed/...), type (Incoming/Outgoing), start_time, end_time, duration, recording_url, caller→User, receiver→User, reference |
+| #   | Entidade                     | Campos principais                                                                                                                                                                                    |
+| --- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | **Lead** (potencial cliente) | first_name, last_name, email, mobile_no, organization, status→LeadStatus, source→LeadSource, industry→Industry, lead_owner→User, annual_revenue, no_of_employees, job_title, image, converted (bool) |
+| 2   | **Deal** (oportunidade)      | organization→Organization, lead→Lead, status→DealStatus, probability, annual_revenue, deal_owner→User, email, mobile_no, next_step, territory→Territory                                              |
+| 3   | **Contact**                  | full_name, email, mobile_no, phone, gender, organization→Organization, is_primary                                                                                                                    |
+| 4   | **Organization** (empresa)   | organization_name, website, organization_logo, no_of_employees, annual_revenue, industry→Industry, territory→Territory, address                                                                      |
+| 5   | **Task**                     | title, priority (Low/Medium/High), status (Backlog/Todo/InProgress/Done/Canceled), start_date, due_date, assigned_to→User, description, reference (lead/deal)                                        |
+| 6   | **Note**                     | title, content, reference (lead/deal/contact), author→User                                                                                                                                           |
+| 7   | **CallLog**                  | from, to, status (Initiated/Ringing/Completed/Failed/...), type (Incoming/Outgoing), start_time, end_time, duration, recording_url, caller→User, receiver→User, reference                            |
 
 ### Lookups (dropdowns)
 
-| Lookup | Valores / Campos |
-|---|---|
+| Lookup         | Valores / Campos                                           |
+| -------------- | ---------------------------------------------------------- |
 | **LeadStatus** | name, color, position, type (Open/Ongoing/OnHold/Won/Lost) |
-| **DealStatus** | name, color, position, probability, type |
-| **LeadSource** | source_name, details |
-| **Industry** | industry |
-| **Territory** | territory_name, manager→User |
-| **LostReason** | name |
+| **DealStatus** | name, color, position, probability, type                   |
+| **LeadSource** | source_name, details                                       |
+| **Industry**   | industry                                                   |
+| **Territory**  | territory_name, manager→User                               |
+| **LostReason** | name                                                       |
 
 ## 2. Páginas observadas (frontend/src/pages/)
 
@@ -39,7 +39,7 @@ Selecionei 7 entidades-núcleo + 6 lookups. Outras 23 doctypes (telefonia, integ
 - `Organizations.vue` (lista) + `Organization.vue` (detalhe)
 - `Tasks.vue`, `Notes.vue`, `CallLogs.vue`
 - `Calendar.vue`, `DataImport.vue`
-- Variantes mobile (Mobile*.vue) — vamos usar layout responsivo único
+- Variantes mobile (Mobile\*.vue) — vamos usar layout responsivo único
 
 ## 3. Fluxos golden path
 

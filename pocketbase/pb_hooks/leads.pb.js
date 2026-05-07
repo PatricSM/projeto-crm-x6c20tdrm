@@ -20,12 +20,7 @@ onRecordCreate((e) => {
       lead.set('sla', policy.id)
       lead.set('sla_creation', new Date().toISOString())
       try {
-        const due = helpers.addMinutesIso(
-          $app,
-          null,
-          policy.get('response_time_min'),
-          policy,
-        )
+        const due = helpers.addMinutesIso($app, null, policy.get('response_time_min'), policy)
         lead.set('response_due', due)
         lead.set('sla_status', 'FirstResponseDue')
       } catch (err) {
