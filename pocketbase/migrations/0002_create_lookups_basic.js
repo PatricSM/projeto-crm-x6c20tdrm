@@ -1,17 +1,5 @@
 migrate(
   (app) => {
-    const colorValues = [
-      'gray',
-      'blue',
-      'green',
-      'red',
-      'yellow',
-      'purple',
-      'pink',
-      'orange',
-      'teal',
-      'cyan',
-    ]
     const adminOnly = "@request.auth.role = 'admin'"
     const authRead = "@request.auth.id != ''"
 
@@ -25,7 +13,23 @@ migrate(
       deleteRule: adminOnly,
       fields: [
         { name: 'name', type: 'text', required: true },
-        { name: 'color', type: 'select', values: colorValues, maxSelect: 1 },
+        {
+          name: 'color',
+          type: 'select',
+          values: [
+            'gray',
+            'blue',
+            'green',
+            'red',
+            'yellow',
+            'purple',
+            'pink',
+            'orange',
+            'teal',
+            'cyan',
+          ],
+          maxSelect: 1,
+        },
         { name: 'position', type: 'number' },
         {
           name: 'type',
@@ -50,7 +54,23 @@ migrate(
       deleteRule: adminOnly,
       fields: [
         { name: 'name', type: 'text', required: true },
-        { name: 'color', type: 'select', values: colorValues, maxSelect: 1 },
+        {
+          name: 'color',
+          type: 'select',
+          values: [
+            'gray',
+            'blue',
+            'green',
+            'red',
+            'yellow',
+            'purple',
+            'pink',
+            'orange',
+            'teal',
+            'cyan',
+          ],
+          maxSelect: 1,
+        },
         { name: 'position', type: 'number' },
         { name: 'probability', type: 'number' },
         {
